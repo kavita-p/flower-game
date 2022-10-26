@@ -3,11 +3,11 @@ mod utils;
 use std::fmt;
 use wasm_bindgen::prelude::*;
 
-// macro_rules! log {
-//     ( $( $t:tt )* ) => {
-//         web_sys::console::log_1(&format!( $( $t )* ).into());
-//     }
-// }
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
+    }
+}
 
 #[wasm_bindgen]
 #[repr(u8)]
@@ -110,14 +110,6 @@ impl Universe {
                 let flower = self.flowers[idx];
                 let live_neighbors = self.count_live_neighbors(row, col);
 
-                // log!(
-                //     "flower[{}, {}] is initially {:?} and has {} live neighbors",
-                //     row,
-                //     col,
-                //     flower,
-                //     live_neighbors
-                // );
-
                 let next_flower = match (flower, live_neighbors) {
                     // Rule One. A living flower with less than two living neighbors is cut off. It dies.
                     (Flower::Alive, x) if x < 2 => Flower::Dead,
@@ -130,8 +122,6 @@ impl Universe {
                     // The only play permitted in the game is the arrangement of the initial flowers.
                     (otherwise, _) => otherwise,
                 };
-
-                // log!("    it becomes {:?}", next_flower);
 
                 next[idx] = next_flower;
             }
