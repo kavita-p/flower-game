@@ -13,8 +13,9 @@ const height = universe.height();
 const canvas = document.getElementById("flower-game-canvas");
 canvas.height = (CELL_SIZE + 1) * height + 1;
 canvas.width = (CELL_SIZE + 1) * width + 1;
-
 const ctx = canvas.getContext("2d");
+
+const playPauseButton = document.getElementById("play-pause");
 
 const drawGrid = () => {
   ctx.beginPath();
@@ -63,15 +64,36 @@ const drawCells = () => {
   ctx.stroke();
 };
 
+let animationId = null;
+
+const isPaused = () => {
+  return animationId === null;
+};
+
+const play = () => {
+  playPauseButton.textContent = "⏸";
+  renderLoop();
+};
+
+const pause = () => {
+  playPauseButton.textContent = "▶";
+  cancelAnimationFrame(animationId);
+  animationId = null;
+};
+
+playPauseButton.addEventListener("click", (_e) => {
+  isPaused() ? play() : pause();
+});
+
 const renderLoop = () => {
   universe.tick();
 
   drawGrid();
   drawCells();
 
-  requestAnimationFrame(renderLoop);
+  animationId = requestAnimationFrame(renderLoop);
 };
 
 drawGrid();
 drawCells();
-requestAnimationFrame(renderLoop);
+play();
