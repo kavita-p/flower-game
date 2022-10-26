@@ -3,11 +3,11 @@ mod utils;
 use std::fmt;
 use wasm_bindgen::prelude::*;
 
-macro_rules! log {
-    ( $( $t:tt )* ) => {
-        web_sys::console::log_1(&format!( $( $t )* ).into());
-    }
-}
+// macro_rules! log {
+//     ( $( $t:tt )* ) => {
+//         web_sys::console::log_1(&format!( $( $t )* ).into());
+//     }
+// }
 
 #[wasm_bindgen]
 #[repr(u8)]
@@ -46,10 +46,6 @@ impl Universe {
         count
     }
 
-    pub fn get_flowers(&self) -> &[Flower] {
-        &self.flowers
-    }
-
     pub fn set_flowers(&mut self, flowers: &[(u32, u32)]) {
         for (row, col) in flowers.iter().cloned() {
             let idx = self.get_index(row, col);
@@ -83,6 +79,18 @@ impl Universe {
         }
     }
 
+    pub fn width(&self) -> u32 {
+        self.width
+    }
+
+    pub fn height(&self) -> u32 {
+        self.height
+    }
+
+    pub fn cells(&self) -> *const Flower {
+        self.flowers.as_ptr()
+    }
+
     pub fn set_width(&mut self, width: u32) {
         self.width = width;
         self.flowers = (0..width * self.height).map(|_| Flower::Dead).collect();
@@ -102,13 +110,13 @@ impl Universe {
                 let flower = self.flowers[idx];
                 let live_neighbors = self.count_live_neighbors(row, col);
 
-                log!(
-                    "flower[{}, {}] is initially {:?} and has {} live neighbors",
-                    row,
-                    col,
-                    flower,
-                    live_neighbors
-                );
+                // log!(
+                //     "flower[{}, {}] is initially {:?} and has {} live neighbors",
+                //     row,
+                //     col,
+                //     flower,
+                //     live_neighbors
+                // );
 
                 let next_flower = match (flower, live_neighbors) {
                     // Rule One. A living flower with less than two living neighbors is cut off. It dies.
@@ -123,7 +131,7 @@ impl Universe {
                     (otherwise, _) => otherwise,
                 };
 
-                log!("    it becomes {:?}", next_flower);
+                // log!("    it becomes {:?}", next_flower);
 
                 next[idx] = next_flower;
             }
