@@ -1,30 +1,70 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Flower Game</title>
+    <style>
+      body {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>The Flower Game</title>
-  <style>
-    body {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-  </style>
-</head>
-
-<body>
-  <noscript>This page contains webassembly and javascript content; please enable
-    javascript in your browser.</noscript>
-  <button id="play-pause"></button>
-  <canvas id="flower-game-canvas"></canvas>
-  <script src="./bootstrap.js"></script>
-</body>
-
+  <body>
+    <noscript
+      >This page contains webassembly and javascript content; please enable
+      javascript in your browser.</noscript
+    >
+    <blockquote>
+      <p>
+        These are the rules of a game. Let it be played upon an infinite
+        two-dimensional grid of flowers.
+      </p>
+      <p>
+        Rule One. A living flower with less than two living neighbors is cut
+        off. It dies.
+      </p>
+      <p>
+        Rule Two. A living flower with two or three living neighbors is
+        connected. It lives.
+      </p>
+      <p>
+        Rule Three. A living flower with more than three living neighbors is
+        starved and overcrowded. It dies.
+      </p>
+      <p>
+        Rule Four. A dead flower with exactly three living neighbors is reborn.
+        It springs back to life.
+      </p>
+      <p>
+        The only play permitted in the game is the arrangement of the initial
+        flowers.
+      </p>
+      <p>
+        This game fascinates kings. This game occupies the very emperors of
+        thought. Though it has only four rules, and the board is a flat
+        featureless grid, in it you will find changeless blocks, stoic as iron,
+        and beacons and whirling pulsars, as well as gliders that soar out to
+        infinity, and patterns that lay eggs and spawn other patterns, and
+        living cells that replicate themselves wholly. In it, you may construct
+        a universal computer with the power to simulate, very slowly, any other
+        computer imaginable and thus simulate whole realities, including nested
+        copies of the flower game itself. And the game is undecidable. No one
+        can predict exactly how the game will play out except by playing it.
+      </p>
+    </blockquote>
+    <p>—<em>Unveiling</em>, Bungie's <em>Destiny</em></p>
+    <button id="play-pause"></button>
+    <canvas id="flower-game-canvas"></canvas>
+    <script src="./bootstrap.js"></script>
+  </body>
 </html>
