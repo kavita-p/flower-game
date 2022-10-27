@@ -87,8 +87,13 @@ impl Universe {
         self.height
     }
 
-    pub fn cells(&self) -> *const Flower {
+    pub fn flowers(&self) -> *const Flower {
         self.flowers.as_ptr()
+    }
+
+    pub fn toggle_flower(&mut self, row: u32, column: u32) {
+        let idx = self.get_index(row, column);
+        self.flowers[idx].toggle();
     }
 
     pub fn set_width(&mut self, width: u32) {
@@ -146,5 +151,14 @@ impl fmt::Display for Universe {
         }
 
         Ok(())
+    }
+}
+
+impl Flower {
+    fn toggle(&mut self) {
+        *self = match *self {
+            Flower::Alive => Flower::Dead,
+            Flower::Dead => Flower::Alive,
+        };
     }
 }

@@ -41,7 +41,7 @@ const getIndex = (row, column) => {
 };
 
 const drawCells = () => {
-  const flowerPtr = universe.cells();
+  const flowerPtr = universe.flowers();
   const flowers = new Uint8Array(memory.buffer, flowerPtr, width * height);
 
   ctx.beginPath();
@@ -80,6 +80,24 @@ const pause = () => {
   cancelAnimationFrame(animationId);
   animationId = null;
 };
+
+canvas.addEventListener("click", (event) => {
+  const boundingRect = canvas.getBoundingClientRect();
+
+  const scaleX = canvas.width / boundingRect.width;
+  const scaleY = canvas.height / boundingRect.height;
+
+  const canvasLeft = (event.clientX - boundingRect.left) * scaleX;
+  const canvasTop = (event.clientY - boundingRect.top) * scaleY;
+
+  const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
+  const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
+
+  universe.toggle_flower(row, col);
+
+  drawGrid();
+  drawCells();
+});
 
 playPauseButton.addEventListener("click", (_e) => {
   isPaused() ? play() : pause();
